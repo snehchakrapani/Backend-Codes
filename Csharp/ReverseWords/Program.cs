@@ -10,25 +10,22 @@ class Program
 
         string[] words = sentence.Split(' ');
 
-        Console.WriteLine("The total word count in the given sentence is: " + words.Length);
+        Console.WriteLine("The total word count is:" + words.Length);
 
-        Console.Write("The reversed order of the given sentence : ");
+        Console.Write("The reversed order:");
 
         for (int i = 0; i < words.Length; i++)
         {
             string word = words[i];
-
             for (int j = word.Length - 1; j >= 0; j--)
             {
                 Console.Write(word[j]);
             }
-
             if (i != words.Length - 1)
             {
                 Console.Write(" ");
             }
         }
-
         Console.Write(".");
     }
 }
