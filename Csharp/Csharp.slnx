@@ -1,5 +1,3 @@
 <Solution>
-  <Project Path="Number Pyramid/Number Pyramid.csproj" />
-  <Project Path="PalindromeAnagram/PalindromeAnagram.csproj" />
-  <Project Path="ReverseWords/ReverseWords.csproj" />
+  <Project Path="Calculator/Calculator.csproj" />
 </Solution>
