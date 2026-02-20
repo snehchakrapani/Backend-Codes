@@ -30,3 +30,29 @@ class Program
             return n * Factorial(n - 1);   Recursive case
         }
     }*/
+/*  static int Fibonacci(int n)
+    {
+        if (n == 0)   Base case
+        {
+            return 0;
+        }
+        else if (n == 1)   Base case
+        {
+            return 1;
+        }
+        else
+        {
+            return Fibonacci(n - 1) + Fibonacci(n - 2);   Recursive case
+        }
+    }
+*/
+/*
+    static string Reverse(string str)
+    {
+        if (str.Length <= 1)
+            return str;  
+        
+        return Reverse(str.Substring(1)) + str[0];
+    }
+}
+*/
