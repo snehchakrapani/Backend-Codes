@@ -22,8 +22,8 @@ namespace AssetManagementSystem.Models
         }
 
         // will call parent constructor using base 
-        public Book(int serialnumber,string name ,DateTime dateofAcquisition ,string author, DateTime dateofpublish,)
-            : base(serialnumber, name, dateofAcquisition)
+        public Book(int serialnumber,string name ,DateTime dateOfAcquisition ,string author, DateTime dateofpublish)
+            : base(serialnumber, name, dateOfAcquisition)
         {
            _author = author;    
             _dateofpublish = dateofpublish; 

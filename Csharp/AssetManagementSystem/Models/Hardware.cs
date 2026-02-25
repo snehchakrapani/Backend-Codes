@@ -15,7 +15,7 @@ namespace AssetManagementSystem.Models
             set { _manufacturer = value; }  
         }
 
-        public string Warranty
+        public string WarrantyPeriod
         {
             get { return _warrantyperiod;}
         }
@@ -27,7 +27,17 @@ namespace AssetManagementSystem.Models
             _warrantyperiod = warrantyperiod;
         }
 
-        public override string 
+        public override string GetAssetType()
+        {
+            return "HardWare";
+        }
+
+        public override void DisplayDetails()
+        {
+            base.DisplayDetails();
+            Console.WriteLine($"Manufacture: {Manufacturer}");
+            Console.WriteLine($"Warranty Period : {WarrantyPeriod}");
+        }
 
     }
 }

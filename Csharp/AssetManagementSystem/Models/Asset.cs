@@ -20,8 +20,8 @@ namespace AssetManagementSystem.Models
 
         public string Name
         {
-            get { return _name; }    
-            set {  _name = value; }
+            get { return _name; }
+            set { _name = value; }
         }
 
         public DateTime DateOfAcquisition
@@ -33,7 +33,7 @@ namespace AssetManagementSystem.Models
         public Asset(int serialnumber, string name, DateTime dateOfAcquisition)
         {
             _serialnumber = serialnumber;
-            _name = name;   
+            _name = name;
             _dateOfAcquisition = dateOfAcquisition;
         }
 
