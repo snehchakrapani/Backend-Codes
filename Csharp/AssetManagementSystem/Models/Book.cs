@@ -4,7 +4,44 @@ using System.Text;
 
 namespace AssetManagementSystem.Models
 {
-    internal class Book
+    public class Book : Asset
     {
+        private string _author;
+        private DateTime _dateofpublish;
+
+        public string Author
+        {
+            get { return _author; }
+            set { _author = value; }
+        }
+
+        public DateTime DateOfPublish
+        {
+            get { return _dateofpublish;  }
+            set { _dateofpublish = value; } 
+        }
+
+        // will call parent constructor using base 
+        public Book(int serialnumber,string name ,DateTime dateofAcquisition ,string author, DateTime dateofpublish,)
+            : base(serialnumber, name, dateofAcquisition)
+        {
+           _author = author;    
+            _dateofpublish = dateofpublish; 
+        }
+
+        public override string GetAssetType()
+        {
+            return "Book";  //ovveriding abstract method
+        }
+
+        public override void DisplayDetails()
+        {
+            //to call parent display details
+            base.DisplayDetails();
+
+            Console.WriteLine($"Author: {Author}");
+            Console.WriteLine($"Date of Publish: {DateOfPublish.ToShortDateString()}");
+
+        }
     }
 }
