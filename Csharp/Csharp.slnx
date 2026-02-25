@@ -2,5 +2,6 @@
   <Project Path="Abstraction&amp;Interface/Abstraction&amp;Interface.csproj" Id="66d7b973-07e2-4e34-9c40-d87c742ca77a" />
   <Project Path="Constructors/Constructors.csproj" />
   <Project Path="OnlineBankingSystem/OnlineBankingSystem.csproj" Id="fb2f3ad1-ba9d-4498-8178-0e4ce2e965cc" />
+  <Project Path="PracticeCollections/PracticeCollections.csproj" Id="820ba4b6-2f94-4a2d-b1f1-f02f39aeb4ad" />
   <Project Path="RecursionExp/RecursionExp.csproj" />
 </Solution>
