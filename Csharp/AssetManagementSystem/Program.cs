@@ -7,41 +7,77 @@ namespace AssetManagementSystem
     {
         static void Main(string[] args)
         {
-            // Create AssetManager instance
             AssetManager manager = new AssetManager();
+            bool running = true;
 
-            bool testing = true;
+            Console.WriteLine("\nAsset Management System");
+            Console.WriteLine("========================\n");
 
-            while (testing)
+            while (running)
             {
-                Console.Clear();
-                Console.WriteLine("=== TESTING ASSET MANAGER ===");
-                Console.WriteLine("1. Add Asset");
-                Console.WriteLine("2. List All Assets");
-                Console.WriteLine("3. Exit");
-                Console.Write("\nChoice: ");
+                Console.WriteLine("\nMain Menu:");
+                Console.WriteLine("1. Add an asset");
+                Console.WriteLine("2. Search an asset");
+                Console.WriteLine("3. Update an asset");
+                Console.WriteLine("4. Delete an asset");
+                Console.WriteLine("5. List of all available assets");
+                Console.WriteLine("6. Exit");
+                Console.Write("\nEnter your choice: ");
 
-                string choice = Console.ReadLine();
+                string input = Console.ReadLine();
+
+                if (!int.TryParse(input, out int choice))
+                {
+                    Console.WriteLine("\nInvalid input. Please enter a number.");
+                    Console.ReadKey();
+                    Console.Clear();
+                    continue;
+                }
+
+                Console.Clear();
 
                 switch (choice)
                 {
-                    case "1":
+                    case 1:
                         manager.AddAsset();
+                        Console.Clear();
                         break;
-                    case "2":
+
+                    case 2:
+                        manager.SearchAsset();
+                        Console.Clear();
+                        break;
+
+                    case 3:
+                        manager.UpdateAsset();
+                        Console.Clear();
+                        break;
+
+                    case 4:
+                        manager.DeleteAsset();
+                        Console.Clear();
+                        break;
+
+                    case 5:
                         manager.ListAllAssets();
+                        Console.Clear();
                         break;
-                    case "3":
-                        testing = false;
+
+                    case 6:
+                        running = false;
+                        Console.WriteLine("\nThank you for using the system. Goodbye!\n");
+                        break;
+
+                    default:
+                        Console.WriteLine("\nInvalid choice. Please select 1-6.");
+                        Console.ReadKey();
+                        Console.Clear();
                         break;
                 }
             }
-
-            Console.WriteLine("Goodbye!");
         }
     }
 }
-
 
 
 /*
