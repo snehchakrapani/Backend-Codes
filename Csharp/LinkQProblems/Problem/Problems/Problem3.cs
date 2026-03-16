@@ -31,7 +31,7 @@ namespace Problem.Problems
                          });
 
             foreach (var item in result)
-                Console.WriteLine($"  {item.Category} → Total Qty: {item.TotalQuantity}");
+                Console.WriteLine($"  {item.Category} : Total Qty: {item.TotalQuantity}");
         }
     }
 }
