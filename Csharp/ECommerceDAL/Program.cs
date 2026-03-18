@@ -1,14 +1,21 @@
 ﻿using ECommerceDAL.Data;
 using ECommerceDAL.Models;
 using System.Xml.Linq;
+using ECommerceDAL.Queries;
 
-using var db = new AppDbContext();
+var queries = new ECommerceQueries();
 
+queries.FetchAllData();
+Console.ReadLine();
+
+
+//using var db = new AppDbContext();
+/*
 db.Customers.AddRange(
     new Customer { Name="Sneh", Email= "Snehchakrapani@gmail.com", City="Jaipur"},
     new Customer { Name="Nakul", Email= "Nakulmi@gmail.com", City="Mumbai"},
-    new Customer { Name="Hridyansh", Email= "Hridyansh01@gmail.com", City="Mumbai"},
-    new Customer { Name="Saksham", Email= "Sakshamjain@gmail.com", City="Mumbai"}
+    new Customer { Name="Hridyansh", Email= "Hridyansh01@gmail.com", City="Indore"},
+    new Customer { Name="Saksham", Email= "Sakshamjain@gmail.com", City="Delhi"}
     );
 db.Products.AddRange(
    new Product { Name = "Laptop", Category = "Electronics", Price = 75000, Stock = 10 },
@@ -28,5 +35,5 @@ db.Orders.AddRange(
 );
 
 db.SaveChanges(); 
-
-Console.WriteLine("Data inserted success!");
+*/
+//Console.WriteLine("Data inserted success!");
