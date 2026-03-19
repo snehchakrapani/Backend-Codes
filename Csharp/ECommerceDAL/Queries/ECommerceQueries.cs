@@ -102,7 +102,8 @@ namespace ECommerceDAL.Queries
             highValueOrders.ForEach(o =>
                 Console.WriteLine("OrderID:" + o.ID + " | Total:" + o.TotalValue));
         }
-
+        
+        // Query -3
         public void GroupByData()
         {
 
@@ -147,7 +148,8 @@ namespace ECommerceDAL.Queries
 
         }
 
-        public void JoinData() //q-4
+        //query-4
+        public void JoinData() 
         {
             Console.WriteLine("\n==============================");
             Console.WriteLine("   CUSTOMER + ORDER + PRODUCT");
@@ -175,8 +177,8 @@ namespace ECommerceDAL.Queries
                 Console.WriteLine($"{r.Customer} | {r.Product} | {r.Category} | Qty:{r.Qty} | {r.Total}"));
         }
 
-
-        public void ChainedQueries() //q5
+        //query-5
+        public void ChainedQueries() 
         {
             Console.WriteLine("\n==============================");
             Console.WriteLine("   HIGH VALUE ELECTRONICS");
@@ -205,5 +207,85 @@ namespace ECommerceDAL.Queries
             MS.ForEach(r =>
                 Console.WriteLine($"{r.Customer} | {r.Product} | {r.Total}"));
         }
+         
+        //query-6
+        public void Aggregations()
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("         Calculations");
+            Console.WriteLine("==============================");
+
+        
+            var totalOrders = db.Orders.Count();
+            var totalRevenue = db.Orders.Sum(o => o.TotalValue);
+            var avgOrder = db.Orders.Average(o => o.TotalValue);
+            var maxOrder = db.Orders.Max(o => o.TotalValue);
+            var minOrder = db.Orders.Min(o => o.TotalValue);
+            var totalProducts = db.Products.Count();
+            var totalCustomers = db.Customers.Count();
+
+            Console.WriteLine($"Total Orders:     {totalOrders}");
+            Console.WriteLine($"Total Revenue:    {totalRevenue}");
+            Console.WriteLine($"Average Order:    {avgOrder}");
+            Console.WriteLine($"Highest Order:    {maxOrder}");
+            Console.WriteLine($"Lowest Order:     {minOrder}");
+            Console.WriteLine($"Total Products:   {totalProducts}");
+            Console.WriteLine($"Total Customers:  {totalCustomers}");
         }
+
+        //query-7
+        public void DeferredExecution()
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   DEFERRED EXECUTION");
+            Console.WriteLine("================================");
+
+            // Query is defined but NOT executed yet
+            // No database call happens at this point.
+            var deferredQuery = db.Orders
+                .Where(o => o.TotalValue > 50000);
+
+            Console.WriteLine("Query defined — No DB call yet.");
+
+            // Database is hit only when Tolist() is called.
+            var deferredResult = deferredQuery.ToList();
+            Console.WriteLine($"Executed on ToList() — Orders Found: {deferredResult.Count}");
+            deferredResult.ForEach(o =>
+                Console.WriteLine($"  OrderID: {o.ID} | Total: Rs.{o.TotalValue}"));
+
+            // Immediate Execution 
+            // Count() triggers immediate execution
+            // Database is hit right away
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   IMMEDIATE EXECUTION");
+            Console.WriteLine("==============================");
+
+            var immediateCount = db.Orders
+                .Where(o => o.TotalValue > 50000)
+                .Count();
+            Console.WriteLine($"Count() executed immediately , Result: {immediateCount}");
+
+            // Deferred Execution Advantage 
+            // Base query is reused with different filters.
+            // Database is hit only when ToList() is called.
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("      REUSING BASE QUERY");
+            Console.WriteLine("==============================");
+
+            var baseQuery = db.Products
+                .Where(p => p.Stock > 0);
+
+            var electronics = baseQuery
+                .Where(p => p.Category == "Electronics")
+                .ToList();
+
+            var clothing = baseQuery
+                .Where(p => p.Category == "Clothing")
+                .ToList();
+
+            Console.WriteLine($"Electronics in Stock: {electronics.Count}");
+            Console.WriteLine($"Clothing in Stock:    {clothing.Count}");
+        }
+
+    }
     }
