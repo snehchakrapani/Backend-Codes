@@ -10,8 +10,9 @@ var queries = new ECommerceQueries();
 //queries.GroupByData(); //q3
 //queries.JoinData(); //q4
 //queries.ChainedQueries(); //q5
-queries.Aggregations(); //q6
-queries.DeferredExecution(); //q7
+//queries.Aggregations(); //q6
+//queries.DeferredExecution(); //q7
+//queries.UpdateDelete(); //q8 
 Console.ReadLine();
 
 

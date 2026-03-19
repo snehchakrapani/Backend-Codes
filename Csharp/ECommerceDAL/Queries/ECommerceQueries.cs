@@ -287,5 +287,76 @@ namespace ECommerceDAL.Queries
             Console.WriteLine($"Clothing in Stock:    {clothing.Count}");
         }
 
+
+        //query 8
+
+        public void UpdateDelete()
+        {
+            
+            Console.WriteLine("\n Update Product Price ");
+
+            var product = db.Products.FirstOrDefault(p => p.Name == "Shirt");
+            if (product != null)
+            {
+                product.Price = 1499;
+                db.SaveChanges();
+                Console.WriteLine($"Updated: {product.Name} | New Price: {product.Price}");
+            }
+
+            
+            Console.WriteLine("\n Update All Electronics Stock ");
+
+            db.Products
+                .Where(p => p.Category == "Electronics")
+                .ToList()
+                .ForEach(p => p.Stock -= 1);
+            db.SaveChanges();
+            Console.WriteLine("Electronics stock reduced by 1");
+
+            
+            Console.WriteLine("\n Delete Low Stock Product ");
+
+            var lowStock = db.Products.FirstOrDefault(p => p.Stock <= 4);
+            if (lowStock != null)
+            {
+                db.Products.Remove(lowStock);
+                db.SaveChanges();
+                Console.WriteLine($"Deleted: {lowStock.Name}");
+            }
+
+
+            Console.WriteLine("\n=== Transaction ===");
+
+            using var transaction = db.Database.BeginTransaction();
+            try
+            {
+                
+                var customer = db.Customers.FirstOrDefault(c => c.Name == "Sneh");
+                if (customer != null)
+                {
+                    customer.City = "Mumbai";
+                    db.SaveChanges();
+                }
+
+                
+                db.Orders.Add(new Order
+                {
+                    CustomerID = 1,
+                    ProductID = 2,
+                    Quantity = 1,
+                    TotalValue = 45000,
+                    OrderDate = DateTime.Now
+                });
+                db.SaveChanges();
+
+                transaction.Commit();
+                Console.WriteLine("Transaction Successfu!");
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                Console.WriteLine($"Transaction Failed: {ex.Message}");
+            }
+        }
     }
     }
