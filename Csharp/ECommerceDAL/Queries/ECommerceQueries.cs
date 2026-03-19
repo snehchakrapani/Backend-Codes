@@ -146,5 +146,64 @@ namespace ECommerceDAL.Queries
                 Console.WriteLine($"Category: {g.Category} | Count: {g.Count} | AvgPrice: {g.AvgPrice} | Stock: {g.TotalStock}"));
 
         }
+
+        public void JoinData() //q-4
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   CUSTOMER + ORDER + PRODUCT");
+            Console.WriteLine("==============================");
+
+
+            var MS = db.Orders
+                .Join(db.Customers,
+                      o => o.CustomerID,
+                      c => c.ID,
+                      (o, c) => new { o, c })
+                .Join(db.Products,
+                      x => x.o.ProductID,
+                      p => p.ID,
+                      (x, p) => new
+                      {
+                          Customer = x.c.Name,
+                          Product = p.Name,
+                          Category = p.Category,
+                          Qty = x.o.Quantity,
+                          Total = x.o.TotalValue
+                      })
+                .ToList();
+            MS.ForEach(r =>
+                Console.WriteLine($"{r.Customer} | {r.Product} | {r.Category} | Qty:{r.Qty} | {r.Total}"));
+        }
+
+
+        public void ChainedQueries() //q5
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   HIGH VALUE ELECTRONICS");
+            Console.WriteLine("================================");
+
+
+            var MS = db.Orders
+                .Join(db.Customers,
+                      o => o.CustomerID,
+                      c => c.ID,
+                      (o, c) => new { o, c })
+                .Join(db.Products,
+                      x => x.o.ProductID,
+                      p => p.ID,
+                      (x, p) => new { x.o, x.c, p })
+                .Where(x => x.p.Category == "Electronics")
+                .Where(x => x.o.TotalValue > 50000)
+                .OrderByDescending(x => x.o.TotalValue)
+                .Select(x => new
+                {
+                    Customer = x.c.Name,
+                    Product = x.p.Name,
+                    Total = x.o.TotalValue
+                })
+                .ToList();
+            MS.ForEach(r =>
+                Console.WriteLine($"{r.Customer} | {r.Product} | {r.Total}"));
+        }
+        }
     }
-}

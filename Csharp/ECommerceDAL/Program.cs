@@ -7,7 +7,9 @@ var queries = new ECommerceQueries();
 
 //queries.FetchAllData(); //q1
 //queries.FilterSortAggregate(); //q2
-queries.GroupByData(); //q3
+//queries.GroupByData(); //q3
+queries.JoinData();        //q4
+queries.ChainedQueries(); //q5
 Console.ReadLine();
 
 
