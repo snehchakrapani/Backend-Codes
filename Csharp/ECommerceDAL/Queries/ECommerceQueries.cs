@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using ECommerceDAL.Data;
 using ECommerceDAL.Models;
@@ -43,6 +44,66 @@ namespace ECommerceDAL.Queries
 
 
         }
+        //======================================================================//
+        //Query 2 -Use LINQ to filter, sort, and aggregate data in various ways
+        //======================================================================//
 
+        public void FilterSortAggregate()
+        {
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   MOST POPULAR PRODUCTS");
+            Console.WriteLine("===============================");
+
+            var popularMS = db.Orders
+                .GroupBy(o => o.ProductID)
+                .Select(g => new
+                {
+                    ProductID = g.Key,
+                    OrderCount = g.Count()
+
+                })
+                .OrderByDescending(x => x.OrderCount)
+                .ToList();
+
+            popularMS.ForEach(p =>
+        Console.WriteLine($"ProductID:{p.ProductID} | Orders:{p.OrderCount}"));
+
+
+
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   TOP CUSTOMERS");
+            Console.WriteLine("================================");
+
+            var topCustomers = db.Orders
+     .GroupBy(o => o.CustomerID)
+     .OrderByDescending(g => g.Count())
+     .Select(g => new {
+         CustomerID = g.Key,
+         OrderCount = g.Count()
+     })
+     .ToList();
+
+            topCustomers.ForEach(c =>
+                Console.WriteLine($"CustomerID:{c.CustomerID} | Orders:{c.OrderCount}"));
+
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   TOTAL SALES");
+            Console.WriteLine("================================");
+
+            var totalSales = db.Orders.Sum(o => o.TotalValue);
+            var highValueOrders = db.Orders
+                .Where(o => o.TotalValue > 50000)
+                .OrderByDescending(o => o.TotalValue)
+                .ToList();
+
+            Console.WriteLine($"Total Revenue: {totalSales}");
+            Console.WriteLine($"High Value Orders (>50000): {highValueOrders.Count}");
+            highValueOrders.ForEach(o =>
+                Console.WriteLine("OrderID:" + o.ID + " | Total:" + o.TotalValue));
         }
+
+      
+
+
+    }
 }
