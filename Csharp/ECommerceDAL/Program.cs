@@ -5,8 +5,9 @@ using ECommerceDAL.Queries;
 
 var queries = new ECommerceQueries();
 
-queries.FetchAllData();
-queries.FilterSortAggregate();
+//queries.FetchAllData(); //q1
+//queries.FilterSortAggregate(); //q2
+queries.GroupByData(); //q3
 Console.ReadLine();
 
 

@@ -77,7 +77,8 @@ namespace ECommerceDAL.Queries
             var topCustomers = db.Orders
      .GroupBy(o => o.CustomerID)
      .OrderByDescending(g => g.Count())
-     .Select(g => new {
+     .Select(g => new
+     {
          CustomerID = g.Key,
          OrderCount = g.Count()
      })
@@ -102,8 +103,48 @@ namespace ECommerceDAL.Queries
                 Console.WriteLine("OrderID:" + o.ID + " | Total:" + o.TotalValue));
         }
 
-      
+        public void GroupByData()
+        {
+
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   CUSTOMERS BY CITY");
+            Console.WriteLine("================================");
 
 
+            var byCityMS = db.Customers
+                .GroupBy(c => c.City)
+                .Select(g => new
+                {
+                    City = g.Key,
+                    Count = g.Count(),
+                    Names = g.Select(c => c.Name).ToList()
+                })
+                .ToList();
+
+            byCityMS.ForEach(g =>
+            {
+                Console.WriteLine($"City: {g.City} | Count: {g.Count}");
+                g.Names.ForEach(n => Console.WriteLine($" {n}"));
+            });
+
+            Console.WriteLine("\n==============================");
+            Console.WriteLine("   PRODUCTS BY CATEGORY");
+            Console.WriteLine("================================");
+
+
+            var byCategoryMS = db.Products
+                .GroupBy(p => p.Category)
+                .Select(g => new
+                {
+                    Category = g.Key,
+                    Count = g.Count(),
+                    AvgPrice = g.Average(p => p.Price),
+                    TotalStock = g.Sum(p => p.Stock)
+                })
+                .ToList();
+            byCategoryMS.ForEach(g =>
+                Console.WriteLine($"Category: {g.Category} | Count: {g.Count} | AvgPrice: {g.AvgPrice} | Stock: {g.TotalStock}"));
+
+        }
     }
 }
