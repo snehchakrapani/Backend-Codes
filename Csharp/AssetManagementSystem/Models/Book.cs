@@ -36,12 +36,9 @@ namespace AssetManagementSystem.Models
 
         public override void DisplayDetails()
         {
-            //to call parent display details
-            base.DisplayDetails();
-
-            Console.WriteLine($"Author: {Author}");
-            Console.WriteLine($"Date of Publish: {DateOfPublish.ToShortDateString()}");
-
+            base.DisplayDetails(); 
+            Console.WriteLine($"Author:           {Author}");
+            Console.WriteLine($"Date of Publish:  {DateOfPublish.ToShortDateString()}");
         }
     }
 }

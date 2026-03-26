@@ -18,6 +18,7 @@ namespace AssetManagementSystem.Models
         public string WarrantyPeriod
         {
             get { return _warrantyperiod;}
+            set { _warrantyperiod = value; } 
         }
 
         public Hardware(int serialnumber,string name, DateTime dateOfAcquisition,

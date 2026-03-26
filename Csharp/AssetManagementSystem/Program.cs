@@ -1,4 +1,44 @@
-﻿using System;
+﻿using AssetManagementSystem.Services;
+
+namespace AssetManagementSystem
+{
+    public class Program
+    {
+        public static void Main(string[] args)
+        {
+            var builder = WebApplication.CreateBuilder(args);
+
+            
+            builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+
+            // Register AssetManager as Singleton
+            
+            builder.Services.AddSingleton<AssetManager>();
+
+            var app = builder.Build();
+
+            
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
+
+            app.UseHttpsRedirection();
+            app.UseAuthorization();
+            app.MapControllers();
+
+            app.Run();
+        }
+    }
+}
+
+
+
+/*
+using System;
 using AssetManagementSystem.Services;
 
 namespace AssetManagementSystem
@@ -78,7 +118,7 @@ namespace AssetManagementSystem
         }
     }
 }
-
+*/
 
 /*
            Console.WriteLine("Testing Asset Classes");
