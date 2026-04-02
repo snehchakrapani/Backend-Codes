@@ -40,6 +40,14 @@ namespace AssetManagementSystem.Controllers
         public string? ExtraField2 { get; set; }
     }
 
+    public class BulkUpdateAssetRequest
+    {
+        public string AssetType { get; set; } = "";
+        public string? Name { get; set; }
+        public string? ExtraField1 { get; set; }
+        public string? ExtraField2 { get; set; }
+    }
+
     public class AssignRequest
     {
         public int SerialNumber { get; set; }
@@ -172,6 +180,25 @@ namespace AssetManagementSystem.Controllers
                 return NotFound(new { message });
 
             return Ok(new { message });
+        }
+
+        [HttpPut("bulk")]
+        public IActionResult BulkUpdate([FromBody] BulkUpdateAssetRequest request)
+        {
+            if (string.IsNullOrWhiteSpace(request.AssetType))
+                return BadRequest(new { message = "AssetType is required" });
+
+            var (success, message, updatedCount) =
+                _manager.UpdateAssetsByType(
+                    request.AssetType,
+                    request.Name,
+                    request.ExtraField1,
+                    request.ExtraField2);
+
+            if (!success)
+                return NotFound(new { message });
+
+            return Ok(new { message, updatedCount });
         }
 
 

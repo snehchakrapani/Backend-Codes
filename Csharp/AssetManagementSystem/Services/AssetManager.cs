@@ -195,6 +195,54 @@ namespace AssetManagementSystem.Services
             return (true, "Asset updated successfully!");
         }
 
+        public (bool success, string message, int updatedCount) UpdateAssetsByType(
+            string assetType,
+            string? name,
+            string? extraField1,
+            string? extraField2)
+        {
+            var assetsToUpdate = _assets
+                .Where(a => string.Equals(a.GetAssetType(), assetType, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (assetsToUpdate.Count == 0)
+                return (false, "No assets found for the given type", 0);
+
+            DateTime parsedDate = default;
+            bool hasParsedDate = !string.IsNullOrWhiteSpace(extraField2) &&
+                                 DateTime.TryParse(extraField2, out parsedDate);
+
+            foreach (var asset in assetsToUpdate)
+            {
+                if (!string.IsNullOrWhiteSpace(name))
+                    asset.Name = name;
+
+                if (asset is Book book)
+                {
+                    if (!string.IsNullOrWhiteSpace(extraField1))
+                        book.Author = extraField1;
+                    if (hasParsedDate)
+                        book.DateOfPublish = parsedDate;
+                }
+                else if (asset is SoftwareLicence sw)
+                {
+                    if (!string.IsNullOrWhiteSpace(extraField1))
+                        sw.LicenseKey = extraField1;
+                    if (hasParsedDate)
+                        sw.ExpiryDate = parsedDate;
+                }
+                else if (asset is Hardware hw)
+                {
+                    if (!string.IsNullOrWhiteSpace(extraField1))
+                        hw.Manufacturer = extraField1;
+                    if (!string.IsNullOrWhiteSpace(extraField2))
+                        hw.WarrantyPeriod = extraField2;
+                }
+            }
+
+            return (true, $"{assetsToUpdate.Count} asset(s) updated successfully!", assetsToUpdate.Count);
+        }
+
      
         public (bool success, string message) DeleteAsset(
             int serialNumber, string assetType)
