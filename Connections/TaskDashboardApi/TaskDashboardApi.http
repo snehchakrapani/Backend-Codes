@@ -1,0 +1,6 @@
+@TaskDashboardApi_HostAddress = http://localhost:5155
+
+GET {{TaskDashboardApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
