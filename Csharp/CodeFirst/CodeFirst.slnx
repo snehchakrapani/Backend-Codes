@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="EF_CF/EF_CF.csproj" />
+  <Project Path="EF_CF_Migrations/EF_CF_Migrations.csproj" />
+</Solution>

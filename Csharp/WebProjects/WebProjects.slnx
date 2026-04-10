@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AssetManagementAPI/AssetManagementAPI.csproj" />
+  <Project Path="MyFirstWebAPIProject/MyFirstWebAPIProject.csproj" />
+</Solution>
